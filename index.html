@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>L'atlas des pays disparus</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="is-intro">
+  <div id="load-overlay" role="status" aria-live="polite" aria-busy="true" aria-label="Chargement">
+    <div class="load-card">
+      <p class="load-text" id="load-text">Ça carto-charge…</p>
+      <div id="load-bar" class="load-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div id="load-bar-fill" class="load-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="intro-modal" class="intro-modal" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+    <div class="intro-card">
+      <h1 id="intro-title">L'atlas des<br>pays disparus</h1>
+      <p class="lead" id="intro-lead">Deux pays ont été fusionnés sur la carte de l'Europe.<br>Sauras-tu les retrouver ?</p>
+      <p class="field-label">Carte</p>
+      <div class="mode-switch region-switch" id="zone-switch" role="group" aria-label="Carte">
+        <button type="button" data-zone="europe" aria-pressed="true">Europe</button>
+        <button type="button" data-zone="africa" aria-pressed="false">Afrique</button>
+        <button type="button" data-zone="asia" aria-pressed="false">Asie</button>
+        <button type="button" data-zone="us" aria-pressed="false">États des USA</button>
+      </div>
+      <p class="field-label">Partie</p>
+      <div class="mode-switch" id="length-switch" role="group" aria-label="Longueur de la partie">
+        <button type="button" data-length="5" aria-pressed="true">5 manches</button>
+        <button type="button" data-length="10" aria-pressed="false">10 manches</button>
+      </div>
+      <p class="field-label">Mode</p>
+      <div class="mode-switch pace-switch" id="pace-switch" role="group" aria-label="Mode de jeu">
+        <button type="button" data-ms="15000" aria-pressed="false">À la cool</button>
+        <button type="button" data-ms="10000" aria-pressed="true">Stressant</button>
+        <button type="button" data-ms="5000" aria-pressed="false">Super stressant</button>
+      </div>
+      <button type="button" id="btn-start" class="btn-primary">Je me lance</button>
+    </div>
+  </div>
+
+  <header id="chrome" hidden>
+    <p class="round-meta" id="round-kicker">Manche 1 / 5</p>
+    <p class="round-prompt" id="round-prompt" aria-live="polite">Alors ?</p>
+  </header>
+
+  <aside id="history-wrap" class="score-history-wrap" hidden aria-label="Votre partie">
+    <p class="score-history-heading">Votre partie</p>
+    <ul id="history" class="score-history"></ul>
+  </aside>
+
+  <div id="timer-block" class="timer-block" hidden aria-label="Temps restant">
+    <div id="timer-bar" class="timer-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+      <div id="timer-fill" class="timer-fill">
+        <span class="timer-value" id="timer-value">10 s</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="map-shell">
+    <div id="map"></div>
+  </div>
+
+  <div id="map-notes" hidden>
+    <div class="map-note is-above" id="note-miss">
+      <p class="map-note-kicker">Vous avez cliqué sur…</p>
+      <p class="map-note-name" id="note-miss-name"></p>
+    </div>
+    <div class="map-note is-above" id="note-fusion">
+      <p class="map-note-kicker" id="note-fusion-kicker">Les deux pays fusionnés étaient…</p>
+      <p class="map-note-name" id="note-fusion-name"></p>
+    </div>
+  </div>
+
+  <canvas id="verdict" aria-hidden="true"></canvas>
+
+  <header id="review-bar" hidden>
+    <button type="button" id="btn-back" class="btn-primary btn-block">Retour au résultat</button>
+  </header>
+
+  <div id="result-modal" class="intro-modal" hidden role="dialog" aria-modal="true" aria-labelledby="result-prompt">
+    <div class="intro-card result-card">
+      <p class="round-meta" id="result-kicker">Manche 1 / 5</p>
+      <p class="result-mark" id="result-mark" aria-hidden="true"></p>
+      <p class="round-prompt" id="result-prompt">Bien vu</p>
+      <p class="result-lead" id="result-lead">Les deux pays fusionnés étaient…</p>
+      <p class="target-line" id="result-label"></p>
+      <button type="button" id="btn-review" class="btn-secondary">Revoir la carte</button>
+      <button type="button" id="btn-next" class="btn-primary">Manche suivante</button>
+    </div>
+  </div>
+
+  <div id="finish-modal" class="intro-modal" hidden role="dialog" aria-modal="true" aria-labelledby="finish-title">
+    <div class="intro-card finish-card">
+      <h1 id="finish-title">Partie terminée</h1>
+      <p class="final-score-kicker">Votre note</p>
+      <p class="final-score" id="final-score">—</p>
+      <ul class="finish-recap" id="finish-recap" aria-label="Bilan des manches"></ul>
+      <button type="button" id="btn-replay" class="btn-primary">Rejouer</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
